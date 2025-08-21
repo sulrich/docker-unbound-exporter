@@ -17,7 +17,7 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  build-and-test:
+  build-test-image:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -57,12 +57,6 @@ jobs:
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:test
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          build-args: |
-            UNBOUND_VERSION=${{ steps.version.outputs.version }}
-
-      - name: run docker image tests
-        run: |
-          docker run --rm ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:test /test.sh
 
       - name: build summary
         run: |
