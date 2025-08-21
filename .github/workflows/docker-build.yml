@@ -39,7 +39,7 @@ jobs:
           if [[ "${{ github.event_name }}" == "workflow_dispatch" && -n "${{ inputs.version }}" ]]; then
             VERSION="${{ inputs.version }}"
           else
-            VERSION=$(grep "ENV EXPORTER_VERSION=" Dockerfile | cut -d'=' -f2 | tr -d '\n')
+          VERSION=$(grep "ARG EXPORTER_VERSION=" Dockerfile | cut -d'=' -f2 | tr -d '\n')
             if [[ -z "$VERSION" ]]; then
               echo "❌ could not determine unbound_exporter version from dockerfile" >&2
               exit 1
