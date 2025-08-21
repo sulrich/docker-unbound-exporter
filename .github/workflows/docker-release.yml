@@ -64,7 +64,7 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
-            type=raw,value=${{ needs.test.outputs.version }}
+            type=raw,value=${{ needs.outputs.version }}
             type=raw,value=latest,enable=${{ github.ref_type == 'tag' || inputs.tag_as_latest == true }}
 
       - name: Build and push multi-arch image
@@ -78,7 +78,7 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           build-args: |
-            VERSION=${{ needs.test.outputs.version }}
+            VERSION=${{ needs.outputs.version }}
 
       - name: Release summary
         run: |
